@@ -52,6 +52,21 @@ VALUES( N'Elvin', N'Sultanov','1993-12-22'),
 ( N'Yahya', N'Qurbanov','1996-12-17'),
 ( N'Emil', N'Babayev','1994-07-17')
 
+-- Update
+
+UPDATE 
+-- SELECT * FROM
+[dbo].[PersonsTemp]
+ set [BirthDay] = '2001-11-01' 
+ WHERE [Id] = 19
+
+UPDATE 
+[dbo].[PersonsTemp]
+ set [BirthDay] = '1997-10-04', -- bir nece column birden deyisende
+     [Name] = N'Ehtiram',
+     [Surname] = N'Əsədli' 
+ WHERE [Id] = 5
+
 -- ------------------------------------------
 
 SELECT * FROM [dbo].[Persons]
