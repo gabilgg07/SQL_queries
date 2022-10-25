@@ -67,7 +67,41 @@ UPDATE
      [Surname] = N'Əsədli' 
  WHERE [Id] = 5
 
+ -- Delete
+
+ DELETE 
+--  SELECT *
+ FROM 
+ [dbo].[PersonsTemp]
+ WHERE [Id] = 12
+
+--- eslinde her hansi melumati silmek duzgun deyil, bunun yerine silinmis kimi qeyd etmek olar,
+--- misal, deleteddate column-u elave edib, icinde date varsa silinmis olsun, yoxdursa silinmemis olsun demek oplar
+
+ --- table-e yeni column elave etdikde alter-den istifade edilir
+
+ ALTER TABLE [dbo].[PersonsTemp]
+ ADD [DeletedDate] DATETIME
+
+ --- silme emeliyyati evezine her hansi datani silinmis kimi qeyd etmek:
+
+ UPDATE [dbo].[PersonsTemp]
+ set [DeletedDate] = DATEADD(hour, 4, getutcdate())
+ WHERE [Id] = 8
+
+ --- silinmemis olanlari getirmek ucun:
+ SELECT * FROM [dbo].[PersonsTemp]
+ WHERE [DeletedDate] is NULL
+
+ --- silinmis olanlar lazimdirsa:
+ SELECT * FROM [dbo].[PersonsTemp]
+ WHERE [DeletedDate] is NOT NULL
+
+
 -- ------------------------------------------
 
 SELECT * FROM [dbo].[Persons]
 SELECT * FROM [dbo].[PersonsTemp]
+
+SELECT * FROM [dbo].[PersonsTemp]
+WHERE [DeletedDate] = NULL
