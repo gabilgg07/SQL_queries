@@ -153,10 +153,36 @@ SET @dtimeCast = CAST(@strD as datetime);
 
 SELECT @dtimeCast 'dtimeCast';
 
+go 
+--> go yazdiqda asagida yeniden eyni adli variableni yeniden adlandirmaq olur. yeni sehife acarmis kimi
+
 -----------------------------------------------------------
 
-go
---> go yazdiqda asagida yeniden eyni adli variableni yeniden adlandirmaq olur. yeni sehife acarmis kimi
+--================ For Windows ===================
+-- PARSE()
+--- cevire bilmese error qaytarir
+
+-- TRY_PARSE()
+--- cevire bilmese error evezine, null qaytarir, ona gore is null-la yoxlaya bilirik
+
+declare @strD varchar(200) = '2021-22-02 12:22:13';
+
+declare @dP datetime;
+declare @dTryP datetime;
+
+-- set @dP = PARSE(@strD as datetime); --> cevire bilmir ve ERROR QAYTARIR
+
+set @dTryP = TRY_PARSE(@strD as datetime); --> cevire bilmir ve null qaytarir
+
+if @dTryP is null
+	begin
+		select 'Tarix formati problemlidir' 'Error'
+	end
+else
+	begin
+		SELECT @dTryP '@dTryP'
+	end
+--================================================
 
 -----------------------------------------------------------
 
@@ -231,3 +257,27 @@ GO
 -- SELECT FORMAT(@d, 'd');
 
 -- SELECT FORMAT(123456789, '##-##-#####'); --out--> 12-34-56789
+
+
+-----------------------------------------------------------
+
+--================ For Windows ===================
+
+-- FORMAT(datetime, stringFormat)
+go
+declare @d datetime = getdate();
+select format(@d,'dd-MMM-yyyy HH:mm:ss') 'dd-MMM-yyyy HH:mm:ss'
+,format(@d,'dd-MMM-yyyy') 'dd-MMM-yyyy'
+,format(@d,'HH:mm:ss') 'HH:mm:ss'
+,format(@d,'dd-MM-yyyy') 'dd-MM-yyyy'
+,format(@d,'dd-MMMM-yy') 'dd-MMMM-yy'
+,format(@d,'dd-MMMM-yyyy') 'dd-MMMM-yyyy';
+go
+
+DECLARE @d DATETIME = '12/01/2018';
+SELECT FORMAT(@d, 'd');
+
+SELECT FORMAT(123456789, '##-##-#####'); --out--> 12-34-56789
+--================================================
+
+-----------------------------------------------------------
