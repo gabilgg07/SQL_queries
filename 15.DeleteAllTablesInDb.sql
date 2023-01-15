@@ -1,0 +1,4 @@
+SELECT 'drop table '+QUOTENAME(SCHEMA_NAME(SCHEMA_ID()))+'.'+QUOTENAME(name)
+FROM sys.tables
+
+SELECT QUOTENAME(SCHEMA_NAME(SCHEMA_ID()))  FROM sys.tables
