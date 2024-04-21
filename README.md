@@ -1,1 +1,1 @@
-# SQL_queries
+# SQL_queries_lesson
